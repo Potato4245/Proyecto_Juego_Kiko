@@ -1,4 +1,4 @@
-package Proyecto_Juego_Kiko;
+package com.example.proyecto_juego_kiko;
 
 import android.os.Bundle;
 import android.view.View;
