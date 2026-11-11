@@ -1,5 +1,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- El degradado oscuro lleva transparencia para que se intuya el hangar. El borde fino delimita la ficha sobre las zonas claras. -->
+    <!-- gradient recorre la ficha de izquierda a derecha con dos tonos oscuros translúcidos.
+         corners define la curva que usa el recorte de la ficha y stroke traza el borde de 1dp. -->
     <gradient android:angle="0" android:startColor="#F218222A" android:endColor="#EB10191E" />
     <corners android:radius="22dp" />
     <stroke android:width="1dp" android:color="#507E7764" />

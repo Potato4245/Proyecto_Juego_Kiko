@@ -13,8 +13,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import androidx.appcompat.widget.AppCompatImageView;
 
-// Las posiciones se expresan en las coordenadas de la ilustración original.
+// Contenedor de la escena. Coloca el fondo y los seis robots, dibuja la marca de selección
+// y mueve el conjunto cuando SelectorRobot pide enfocar una plataforma.
 public class HangarView extends FrameLayout {
     // Medimos los centros de las seis bases sobre una referencia de 768 × 432. SUELO fija
     // la altura de los pies. Cambiar estos valores desplaza las figuras sobre el fondo.
@@ -23,6 +25,10 @@ public class HangarView extends FrameLayout {
     private static final int ALTO = 432;
     private static final int SUELO = 264;
     private static final int ALTURA_ROBOT = 151;
+    // Posición del pie dentro de cada PNG cuadrado, medida desde su borde superior.
+    private static final float[] PIES = {0.93f, 0.955f, 0.965f, 0.945f, 0.95f, 0.935f};
+    // escala convierte las unidades del dibujo en píxeles del dispositivo. Los bordes son
+    // los desplazamientos hasta la esquina del fondo y se reutilizan para colocar el anillo.
     private float escala;
     private float bordeX;
     private float bordeY;
@@ -32,6 +38,7 @@ public class HangarView extends FrameLayout {
     private int destacado = -1;
     private final ValueAnimator luzAmbiente = new ValueAnimator();
     private int sombra;
+    // Reutilizamos el pincel y el trazado del símbolo al redibujar la plataforma.
     private final Paint marca = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Path check = new Path();
 
@@ -49,8 +56,9 @@ public class HangarView extends FrameLayout {
         // La primera vista hija, con índice 0, es el fondo. El robot de la plataforma i está
         // en la vista hija i + 1. Ese desplazamiento se usa al dibujar y al aplicar la sombra.
         addView(fondo);
-        // Design construye esta vista sin ejecutar SelectorRobot.onCreate(). Usamos el mismo
-        // catálogo y el mismo onMeasure para situar las seis figuras sobre sus plataformas.
+        // Si el editor instancia HangarView directamente, necesita crear sus propias figuras.
+        // La vista previa de selector_robot.xml usa el dibujo de hangar_diseno.xml. En el
+        // juego, SelectorRobot añade las figuras táctiles después de inflar esta vista.
         if (isInEditMode()) {
             for (SelectorRobot.Robot robot : SelectorRobot.Robot.values()) {
                 ImageView figura = new ImageView(context);
@@ -73,6 +81,7 @@ public class HangarView extends FrameLayout {
             if (intensidad == 0 || (destacado >= 0 && i == destacado + 1)) {
                 imagen.clearColorFilter();
             } else {
+                // El desplazamiento coloca la intensidad en el canal alfa del color negro.
                 imagen.setColorFilter(intensidad << 24, PorterDuff.Mode.SRC_ATOP);
             }
         }
@@ -97,7 +106,7 @@ public class HangarView extends FrameLayout {
         addView(figura);
     }
 
-    private static class Figura extends ImageView {
+    private static class Figura extends AppCompatImageView {
         private final Bitmap original;
 
         Figura(Context contexto, Bitmap original) {
@@ -184,13 +193,14 @@ public class HangarView extends FrameLayout {
         escala = Math.min(ancho / (float) ANCHO, alto / (float) (ALTO * 0.77));
         bordeX = (ancho - ANCHO * escala) / 2f;
         bordeY = (alto - ALTO * escala) / 2f;
+        // Primero dimensionamos el fondo completo. Para cada PNG, restamos medio ancho
+        // al centro de la base y la distancia hasta los pies a la altura del suelo. Así
+        // obtenemos la esquina superior izquierda que FrameLayout necesita para colocarlo.
         colocar(0, 0, 0, ANCHO, ALTO);
         for (int i = 1; i < getChildCount(); i++) {
-            // Los PNG son verticales, en proporción 2:3. Restamos la mitad del ancho para centrar
-            // cada robot y ajustamos sus pies con dos unidades de margen en la imagen de referencia.
-            float anchoRobot = ALTURA_ROBOT * 2f / 3f;
-            colocar(i, PLATAFORMAS[i - 1] - anchoRobot / 2, SUELO - ALTURA_ROBOT + 2,
-                    anchoRobot, ALTURA_ROBOT);
+            int plataforma = i - 1;
+            colocar(i, PLATAFORMAS[plataforma] - ALTURA_ROBOT / 2f,
+                    SUELO - ALTURA_ROBOT * PIES[plataforma], ALTURA_ROBOT, ALTURA_ROBOT);
         }
         super.onMeasure(widthSpec, heightSpec);
     }
@@ -216,6 +226,7 @@ public class HangarView extends FrameLayout {
             destacado = indice;
             if (destacado >= 0) ((Figura) getChildAt(destacado + 1)).iluminar(true);
         }
+        // Pedimos otro dibujo para que drawChild cambie la marca de la plataforma.
         invalidate();
         luzAmbiente.cancel();
         // 108 sobre 255 atenúa el entorno aproximadamente un 42 %. Partimos de la sombra actual
@@ -255,6 +266,8 @@ public class HangarView extends FrameLayout {
                 .setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator()).start();
     }
 
+    // Si la cámara rebasa un extremo, devuelve ese extremo. Dentro del intervalo conserva
+    // el desplazamiento calculado, también para las plataformas centrales.
     private static float limitar(float valor, float minimo, float maximo) {
         return Math.max(minimo, Math.min(valor, maximo));
     }

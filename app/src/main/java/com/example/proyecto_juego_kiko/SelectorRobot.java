@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -22,6 +23,8 @@ public class SelectorRobot extends ComponentActivity {
         Vapora(R.drawable.sel_vapora, R.string.sel_desc_vapora),
         Nox(R.drawable.sel_nox, R.string.sel_desc_nox);
 
+        // Son identificadores de recursos: uno apunta al PNG y el otro al texto de la ficha.
+        // El constructor los asocia al nombre del catálogo (por ejemplo, Volt).
         final int imagen;
         final int descripcion;
 
@@ -37,7 +40,7 @@ public class SelectorRobot extends ComponentActivity {
     private Robot enfocado;
 
     // Lee la última elección confirmada en las preferencias privadas de la app. La cadena vacía
-    // significa que aún no se ha elegido ningún robot. El menú también usa este método.
+    // significa que aún no se ha elegido ningún robot. El menú puede leer este mismo valor al volver del selector.
     static String robotGuardado(Context contexto) {
         return contexto.getSharedPreferences("hangar", MODE_PRIVATE).getString("robot", "");
     }
@@ -50,8 +53,12 @@ public class SelectorRobot extends ComponentActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView(R.layout.selector_robot);
-        escena = findViewById(R.id.escena);
+        // El XML principal reserva el sitio con un ViewStub. inflate() lo sustituye por la
+        // HangarView de hangar_interactivo.xml y devuelve la vista que recibirá los robots.
+        escena = (HangarView) ((ViewStub) findViewById(R.id.cargar_escena)).inflate();
         ficha = findViewById(R.id.ficha);
+        // Recortamos el contenido al contorno redondeado del fondo, incluso al hacer scroll.
+        ficha.setClipToOutline(true);
         // Añadimos cada figura con su propia acción de toque. Si Android recrea la actividad,
         // recuperamos la ficha que estaba abierta, aunque el jugador aún no hubiera confirmado.
         for (Robot robot : Robot.values()) {
@@ -67,6 +74,7 @@ public class SelectorRobot extends ComponentActivity {
         findViewById(R.id.volver).setOnClickListener(v -> mostrar(null, true));
         findViewById(R.id.confirmar).setOnClickListener(v -> {
             if (enfocado == null) return;
+            // apply() actualiza el valor en memoria al instante y programa su escritura en disco.
             getSharedPreferences("hangar", MODE_PRIVATE).edit()
                     .putString("robot", enfocado.name()).apply();
             // La pantalla que abrió el selector vuelve a primer plano con la elección guardada.
@@ -87,6 +95,7 @@ public class SelectorRobot extends ComponentActivity {
         // La escena recibe el índice del robot o -1 para alejar la cámara. La ficha es otra vista,
         // así que el zoom del hangar mantiene los textos y botones a su tamaño habitual.
         escena.enfocar(robot == null ? -1 : robot.ordinal(), animar);
+        // Detenemos cualquier entrada anterior antes de ocultar la ficha o rellenarla de nuevo.
         ficha.animate().cancel();
         findViewById(R.id.indicacion).setVisibility(robot == null ? View.VISIBLE : View.GONE);
         if (robot == null) {
@@ -97,6 +106,8 @@ public class SelectorRobot extends ComponentActivity {
         // se invierten los lados. El ancho se limita al 44 % de la escena y a un máximo de 328 dp.
         boolean aDerecha = robot.ordinal() < 3;
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) ficha.getLayoutParams();
+        // El ancho medido llega en píxeles. La densidad permite comparar esos píxeles con
+        // el límite de 328 dp y expresar también en dp el recorrido de entrada de la ficha.
         float densidad = getResources().getDisplayMetrics().density;
         lp.width = Math.min(Math.round(escena.getWidth() * 0.44f), Math.round(328 * densidad));
         lp.gravity = Gravity.BOTTOM | (aDerecha ? Gravity.RIGHT : Gravity.LEFT);

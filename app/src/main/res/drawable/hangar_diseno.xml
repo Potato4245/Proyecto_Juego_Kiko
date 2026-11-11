@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Composición de Design en coordenadas relativas al fondo de 768 × 432.
+     La primera capa pinta el fondo completo. Las seis siguientes colocan un PNG por base.
+     Los cuatro porcentajes de cada inset reservan espacio desde los bordes del fondo. El
+     bitmap rellena el rectángulo restante. Los márgenes verticales varían porque los pies
+     quedan a distinta altura dentro de cada PNG. Si se mueve una base en HangarView, hay
+     que ajustar su capa aquí para que Design muestre la nueva posición. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap android:src="@drawable/sel_hangar" android:gravity="fill" />
+    </item>
+    <item>
+        <inset android:insetLeft="0.20%" android:insetRight="80.14%"
+            android:insetTop="28.60%" android:insetBottom="36.44%">
+            <bitmap android:src="@drawable/sel_atlas" android:gravity="fill" />
+        </inset>
+    </item>
+    <item>
+        <inset android:insetLeft="16.08%" android:insetRight="64.26%"
+            android:insetTop="27.73%" android:insetBottom="37.32%">
+            <bitmap android:src="@drawable/sel_volt" android:gravity="fill" />
+        </inset>
+    </item>
+    <item>
+        <inset android:insetLeft="32.10%" android:insetRight="48.24%"
+            android:insetTop="27.38%" android:insetBottom="37.67%">
+            <bitmap android:src="@drawable/sel_cronos" android:gravity="fill" />
+        </inset>
+    </item>
+    <item>
+        <inset android:insetLeft="48.24%" android:insetRight="32.10%"
+            android:insetTop="28.08%" android:insetBottom="36.97%">
+            <bitmap android:src="@drawable/sel_zepelin" android:gravity="fill" />
+        </inset>
+    </item>
+    <item>
+        <inset android:insetLeft="64.39%" android:insetRight="15.95%"
+            android:insetTop="27.91%" android:insetBottom="37.14%">
+            <bitmap android:src="@drawable/sel_vapora" android:gravity="fill" />
+        </inset>
+    </item>
+    <item>
+        <inset android:insetLeft="80.27%" android:insetRight="0.07%"
+            android:insetTop="28.43%" android:insetBottom="36.62%">
+            <bitmap android:src="@drawable/sel_nox" android:gravity="fill" />
+        </inset>
+    </item>
+</layer-list>

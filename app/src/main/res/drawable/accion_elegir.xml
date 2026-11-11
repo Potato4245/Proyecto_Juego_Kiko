@@ -1,5 +1,6 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#44000000">
-    <!-- Fondo del botón Elegir. El relleno dorado identifica la confirmación y ripple dibuja una onda durante la pulsación. -->
+    <!-- Fondo del botón Elegir. solid pinta el relleno dorado y corners redondea las esquinas.
+         Al tocar, ripple superpone una onda oscura. La acción de guardar está en SelectorRobot. -->
     <item>
         <shape>
             <solid android:color="#FFE9BF80" />

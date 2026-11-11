@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto_Juego_Kiko">
-        <!-- El menú del juego puede abrir el selector con un Intent explícito. -->
+        <!-- El menú del juego puede abrir esta actividad con un Intent a SelectorRobot.class.
+             exported=false limita el acceso desde otras aplicaciones. sensorLandscape permite
+             jugar en horizontal con cualquiera de los dos lados del móvil hacia arriba. -->
         <activity android:name=".SelectorRobot" android:exported="false"
             android:screenOrientation="sensorLandscape" />
         <activity

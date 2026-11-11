@@ -1,5 +1,6 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#44FFFFFF">
-    <!-- Fondo de No elegir. La forma redondeada mantiene el tamaño táctil y la onda da respuesta al toque. -->
+    <!-- Fondo de No elegir. solid pinta el relleno gris y corners redondea las esquinas.
+         La onda clara de ripple confirma el toque. La altura táctil se define en selector_robot.xml. -->
     <item>
         <shape>
             <solid android:color="#FF303A40" />
