@@ -1,54 +1,44 @@
 package com.example.proyecto_juego_kiko;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class DdHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "juego_robots.db";
-    private static final String TABLE_USUARIOS = "t_usuarios";
+public class Menu_Login extends AppCompatActivity {
+    private EditText etUsuario, etPassword;
+    private DbHelper dbHelper;
 
-    public DdHelper(@Nullable Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        etUsuario = findViewById(R.id.etUsuario);
+        etPassword = findViewById(R.id.etPassword);
+        Button btnLogin = findViewById(R.id.button);
+
+        dbHelper = new DbHelper(this);
+
+        btnLogin.setOnClickListener(v -> {
+            String usuario = etUsuario.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
+
+            if (usuario.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+            } else if (dbHelper.comprobarLogin(usuario, password)) {
+                Toast.makeText(this, "¡Bienvenido al hangar, " + usuario + "!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_USUARIOS + " (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "usuario TEXT UNIQUE, " +
-                "password TEXT)");
-        db.execSQL("INSERT INTO " + TABLE_USUARIOS + " (usuario, password) VALUES ('piloto1', '1234')");
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USUARIOS);
-        onCreate(db);
-    }
-
-    public long registrarUsuario(String usuario, String password) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("usuario", usuario);
-        values.put("password", password);
-        return db.insert(TABLE_USUARIOS, null, values);
-    }
-
-    public boolean comprobarLogin(String usuario, String password) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(
-                "SELECT * FROM " + TABLE_USUARIOS + " WHERE usuario = ? AND password = ?",
-                new String[]{usuario, password}
-        );
-
-        boolean existe = cursor.getCount() > 0;
-        cursor.close();
-        return existe;
+    protected void onDestroy() {
+        dbHelper.close();
+        super.onDestroy();
     }
 }
