@@ -24,4 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Proyecto_Juego_Kiko"
 include(":app")
- 
+include(":hangar")
