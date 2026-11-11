@@ -1,9 +1,0 @@
-<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#44FFFFFF">
-    <!-- Fondo de No elegir. La forma redondeada mantiene el tamaño táctil y la onda da respuesta al toque. -->
-    <item>
-        <shape>
-            <solid android:color="#FF303A40" />
-            <corners android:radius="26dp" />
-        </shape>
-    </item>
-</ripple>
