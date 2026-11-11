@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SelectorRobot infla este layout en el sitio reservado por cargar_escena. Android crea
+     la clase Java indicada en la etiqueta y le entrega los atributos de tamaño. HangarView
+     ocupa el espacio de su contenedor y coloca los robots cuando conoce sus medidas. -->
+<com.example.proyecto_juego_kiko.HangarView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/escena" android:layout_width="match_parent" android:layout_height="match_parent" />
