@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#101820">
+
+    <!-- FONDO -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/fondo_principal"
+        android:scaleType="centerCrop"
+        android:contentDescription="@null" />
+
+    <!-- OSCURECIMIENTO -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#9908131A" />
+
+    <!-- SCROLL PARA MÓVILES PEQUEÑOS -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <!-- PANEL CENTRAL -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/fondo_cristal"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="22dp">
+
+                <!-- COLUMNA IZQUIERDA -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingEnd="20dp">
+
+                    <!-- LOGO EXTRA MACHINE -->
+                    <ImageView
+                        android:layout_width="140dp"
+                        android:layout_height="125dp"
+                        android:src="@drawable/logo"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="Logo Extra Machine"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="EXTRA"
+                        android:textColor="#F0E8D8"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/orbitron" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="MACHINE"
+                        android:textColor="#D6AD60"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/orbitron" />
+
+                    <View
+                        android:layout_width="90dp"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="#69DDD3" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="ESTACIÓN AU-04"
+                        android:textColor="#69DDD3"
+                        android:textSize="12sp"
+                        android:fontFamily="monospace" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="ACCESO RESTRINGIDO"
+                        android:textColor="#CDA472"
+                        android:textSize="10sp"
+                        android:fontFamily="monospace" />
+
+                </LinearLayout>
+
+                <!-- SEPARADOR VERTICAL -->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="240dp"
+                    android:background="#805D3A" />
+
+                <!-- COLUMNA DERECHA -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.1"
+                    android:orientation="vertical"
+                    android:paddingStart="24dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="IDENTIFICATE"
+                        android:textColor="#F0E8D8"
+                        android:textSize="13sp"
+                        android:fontFamily="monospace"
+                        android:layout_marginBottom="15dp" />
+
+                    <!-- USUARIO -->
+                    <EditText
+                        android:id="@+id/etUsuario"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/campo_login"
+                        android:hint="Nombre de usuario"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#CDD6D9"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/orbitron"
+                        android:autofillHints="username"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- CONTRASEÑA -->
+                    <EditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/campo_login"
+                        android:hint="Contraseña"
+                        android:inputType="textPassword"
+                        android:singleLine="true"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#CDD6D9"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/orbitron"
+                        android:autofillHints="password" />
+
+                    <!-- RECUPERAR -->
+                    <TextView
+                        android:id="@+id/buttonreset"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="end|center_vertical"
+                        android:text="¿Has olvidado tu contraseña?"
+                        android:textColor="#D6AD60"
+                        android:textSize="10sp"
+                        android:fontFamily="@font/orbitron"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <!-- ACCEDER -->
+                    <TextView
+                        android:id="@+id/button"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/boton_inicio_steampunk"
+                        android:gravity="center"
+                        android:text="▶  ACCEDER"
+                        android:textColor="#F0D49A"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/orbitron"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <!-- REGISTRO -->
+                    <TextView
+                        android:id="@+id/btnRegistro"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="¿NO TIENES CUENTA? REGÍSTRATE"
+                        android:textColor="#69DDD3"
+                        android:textSize="10sp"
+                        android:fontFamily="@font/orbitron"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

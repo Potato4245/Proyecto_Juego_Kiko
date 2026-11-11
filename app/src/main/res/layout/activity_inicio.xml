@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0B161C">
+
+    <!-- FONDO STEAMPUNK -->
+    <ImageView
+        android:id="@+id/fondoInicio"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/fondo_principal"
+        android:scaleType="centerCrop"
+        android:alpha="0.85"
+        android:contentDescription="@null" />
+
+    <!-- CAPA OSCURA PARA MEJORAR LEGIBILIDAD -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#7708131A" />
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/contenidoInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="350dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:paddingStart="48dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <!-- ESTADO DE LA ESTACIÓN -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ESTACIÓN ESPACIAL AU-04"
+                    android:textColor="#69DDD3"
+                    android:textSize="12sp"
+                    android:letterSpacing="0.08"
+                    android:fontFamily="monospace" />
+
+            </LinearLayout>
+
+            <!-- TÍTULO EXTRA -->
+            <TextView
+                android:id="@+id/tituloExtra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EXTRA"
+                android:textColor="#D6AD60"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/orbitron"
+                android:includeFontPadding="false" />
+
+            <!-- TÍTULO MACHINE -->
+            <TextView
+                android:id="@+id/tituloMachine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MACHINE"
+                android:textColor="#D6AD60"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/orbitron"
+                android:includeFontPadding="false" />
+
+            <!-- LÍNEA DECORATIVA -->
+            <View
+                android:layout_width="251dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="18dp"
+                android:background="#69DDD3" />
+
+            <!-- ESLOGAN -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UNA ESTACIÓN ESPACIAL...\nUNA INFECCIÓN ROBÓTICA"
+                android:textColor="#F0E8D8"
+                android:textSize="14sp"
+                android:letterSpacing="0.08"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="26dp" />
+
+            <!-- BOTÓN JUGAR -->
+            <TextView
+                android:id="@+id/btnJugar"
+                android:layout_width="270dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/boton_inicio_steampunk"
+                android:gravity="center"
+                android:text="▶  JUGAR"
+                android:textColor="#F0D49A"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/orbitron"
+                android:letterSpacing="0.08"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Jugar" />
+
+
+            <TextView android:id="@+id/robotElegido" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:textColor="#F0D49A"
+                android:visibility="gone" android:paddingTop="8dp" />
+
+            <Button android:id="@+id/ajustes" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="@string/ajustes" />
+
+            <!-- VERSIÓN -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="VERSIÓN ALPHA DEMOSTRACIÓN V.1.0"
+                android:textColor="#CDA472"
+                android:textSize="10sp"
+                android:letterSpacing="0.05"
+                android:fontFamily="monospace" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

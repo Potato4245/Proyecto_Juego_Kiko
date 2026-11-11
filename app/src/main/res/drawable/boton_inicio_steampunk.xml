@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- BOTÓN PULSADO -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#775522"
+                android:centerColor="#49331D"
+                android:endColor="#211A15"
+                android:angle="270" />
+
+            <corners android:radius="7dp" />
+
+            <stroke
+                android:width="2dp"
+                android:color="#69DDD3" />
+        </shape>
+    </item>
+
+    <!-- BOTÓN NORMAL -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#51402C"
+                android:centerColor="#211D1A"
+                android:endColor="#10171B"
+                android:angle="270" />
+
+            <corners android:radius="7dp" />
+
+            <stroke
+                android:width="2dp"
+                android:color="#D6AD60" />
+        </shape>
+    </item>
+
+</selector>
