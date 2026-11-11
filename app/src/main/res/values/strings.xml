@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Proyecto_Juego_Kiko</string>
+    <string name="login_usuario">Nombre de usuario</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_entrar">INICIAR SESIÓN</string>
+    <string name="login_registro">¿NO TIENES CUENTA? REGÍSTRATE</string>
+    <string name="login_recuperar">¿Has olvidado tu contraseña?</string>
 </resources>
