@@ -11,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto_Juego_Kiko">
+        <!-- El menú del juego puede abrir el selector con un Intent explícito. -->
+        <activity android:name=".SelectorRobot" android:exported="false"
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Menu_Login"
             android:exported="true"
