@@ -1,8 +1,10 @@
 package com.example.proyecto_juego_kiko;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +21,7 @@ public class Menu_Login extends AppCompatActivity {
         etUsuario = findViewById(R.id.etUsuario);
         etPassword = findViewById(R.id.etPassword);
         Button btnLogin = findViewById(R.id.button);
+        TextView btnReset = findViewById(R.id.buttonreset);
 
         dbHelper = new DbHelper(this);
 
@@ -34,6 +37,8 @@ public class Menu_Login extends AppCompatActivity {
                 Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
             }
         });
+
+        btnReset.setOnClickListener(v -> startActivity(new Intent(this, Reset_Password.class)));
     }
 
     @Override

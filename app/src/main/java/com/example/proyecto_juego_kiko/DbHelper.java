@@ -50,4 +50,11 @@ public class DbHelper extends SQLiteOpenHelper {
         cursor.close();
         return existe;
     }
+
+    public boolean cambiarPassword(String usuario, String nuevaPassword) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("password", nuevaPassword);
+        return db.update(TABLE_USUARIOS, values, "usuario = ?", new String[]{usuario}) > 0;
+    }
 }
