@@ -1,5 +1,4 @@
 <resources>
-    <string name="nombre_hangar">Hangar de robots</string>
     <string name="toca_robot">Toca un robot para conocerlo</string>
     <string name="elegir">Elegir</string>
     <string name="no_elegir">No elegir</string>

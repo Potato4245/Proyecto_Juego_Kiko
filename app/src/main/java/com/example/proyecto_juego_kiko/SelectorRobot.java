@@ -69,14 +69,8 @@ public class SelectorRobot extends ComponentActivity {
             if (enfocado == null) return;
             getSharedPreferences("hangar", MODE_PRIVATE).edit()
                     .putString("robot", enfocado.name()).apply();
-            // Al abrir la demo desde su icono, nos quedamos en el hangar y actualizamos el ✓.
-            // Si el botón Jugar abrió esta actividad, finish() devuelve al jugador a su menú.
-            if (android.content.Intent.ACTION_MAIN.equals(getIntent().getAction())) {
-                escena.marcarElegido(enfocado.ordinal());
-                mostrar(null, true);
-            } else {
-                finish();
-            }
+            // La pantalla que abrió el selector vuelve a primer plano con la elección guardada.
+            finish();
         });
         // El gesto Atrás tiene dos destinos. Desde una ficha vuelve a las plataformas y desde
         // la vista general sale del selector. Ninguno de esos gestos confirma un personaje.

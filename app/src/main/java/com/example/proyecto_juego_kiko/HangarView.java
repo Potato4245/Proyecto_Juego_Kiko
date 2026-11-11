@@ -85,13 +85,6 @@ public class HangarView extends FrameLayout {
         addView(figura);
     }
 
-    // Actualiza la marca visible en la demo. La actividad ya ha guardado el nombre;
-    // invalidate() pide a Android que vuelva a dibujar la escena.
-    void marcarElegido(int indice) {
-        elegido = indice;
-        invalidate();
-    }
-
     private static class Figura extends ImageView {
         private final Bitmap original;
 
