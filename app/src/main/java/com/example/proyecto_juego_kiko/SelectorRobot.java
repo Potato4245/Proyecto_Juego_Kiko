@@ -61,8 +61,10 @@ public class SelectorRobot extends ComponentActivity {
         ficha.setClipToOutline(true);
         // Añadimos cada figura con su propia acción de toque. Si Android recrea la actividad,
         // recuperamos la ficha que estaba abierta, aunque el jugador aún no hubiera confirmado.
+        String guardado = robotGuardado(this);
         for (Robot robot : Robot.values()) {
-            escena.agregarRobot(robot.name(), robot.imagen, v -> mostrar(robot, true));
+            escena.agregarRobot(robot.name(), robot.imagen, robot.name().equals(guardado),
+                    v -> mostrar(robot, true));
             if (estado != null && robot.name().equals(estado.getString("vista"))) enfocado = robot;
         }
         // El zoom depende del ancho y el alto reales. Recalculamos el encuadre cuando la escena

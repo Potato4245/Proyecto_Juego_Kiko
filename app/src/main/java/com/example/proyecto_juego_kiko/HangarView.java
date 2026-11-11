@@ -87,7 +87,7 @@ public class HangarView extends FrameLayout {
         }
     }
 
-    void agregarRobot(String nombre, int imagen, OnClickListener alTocar) {
+    void agregarRobot(String nombre, int imagen, boolean guardado, OnClickListener alTocar) {
         BitmapFactory.Options opciones = new BitmapFactory.Options();
         // Decodificar el PNG a la mitad del ancho y del alto reduce la memoria de las seis figuras.
         // FIT_CENTER conserva sus proporciones al encajarlas en el espacio de la plataforma.
@@ -96,7 +96,7 @@ public class HangarView extends FrameLayout {
         Figura figura = new Figura(getContext(), original);
         // Al construir el hangar recuperamos el ✓ de la sesión anterior. Todavía no hemos añadido
         // esta figura, por eso su índice de plataforma es el número actual de hijos menos el fondo.
-        if (nombre.equals(SelectorRobot.robotGuardado(getContext()))) elegido = getChildCount() - 1;
+        if (guardado) elegido = getChildCount() - 1;
         figura.setScaleType(ImageView.ScaleType.FIT_CENTER);
         // El nombre identifica la figura ante un lector de pantalla. El listener comunica a la
         // actividad qué robot se ha tocado para que pueda abrir su ficha.
@@ -261,9 +261,25 @@ public class HangarView extends FrameLayout {
         }
         // La cámara es el movimiento de este FrameLayout completo: fondo, figuras y marcas
         // se acercan juntos. La interpolación suaviza el arranque y el final del recorrido.
+        if (!animar) {
+            // Al restaurar la pantalla, el primer dibujo ya debe tener el encuadre correcto.
+            setScaleX(zoom);
+            setScaleY(zoom);
+            setTranslationX(x);
+            setTranslationY(y);
+            return;
+        }
         animate().scaleX(zoom).scaleY(zoom).translationX(x).translationY(y)
-                .setDuration(animar ? 540 : 0)
+                .setDuration(540)
                 .setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator()).start();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        // Si el jugador sale durante el zoom, dejamos de dibujar fotogramas de la escena cerrada.
+        animate().cancel();
+        luzAmbiente.cancel();
+        super.onDetachedFromWindow();
     }
 
     // Si la cámara rebasa un extremo, devuelve ese extremo. Dentro del intervalo conserva
