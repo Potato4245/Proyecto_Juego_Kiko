@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- El panel translúcido permite ver el fondo detrás del formulario. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="#7A172631" />
     <corners android:radius="18dp" />

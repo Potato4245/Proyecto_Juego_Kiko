@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- El selector dibuja un acabado distinto al pulsar el botón de la portada. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- BOTÓN PULSADO -->

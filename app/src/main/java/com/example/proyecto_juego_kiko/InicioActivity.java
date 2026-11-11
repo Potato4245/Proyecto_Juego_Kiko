@@ -2,6 +2,7 @@
 package com.example.proyecto_juego_kiko;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,13 +17,24 @@ public class InicioActivity extends AppCompatActivity {
         android.widget.TextView robot = findViewById(R.id.robotElegido);
         robot.setVisibility(elegido.isEmpty() ? View.GONE : View.VISIBLE);
         robot.setText(getString(R.string.robot_elegido, elegido));
+
+        if (musica != null){
+            musica.start();
+        }
     }
+
+    private MediaPlayer musica;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_inicio);
+
+        musica = MediaPlayer.create(this, R.raw.music1);
+        musica.setLooping(true);
+        musica.start();
 
         findViewById(R.id.ajustes).setOnClickListener(v -> startActivity(new Intent(this, AjustesActivity.class)));
         View btnJugar = findViewById(R.id.btnJugar);
@@ -36,5 +48,15 @@ public class InicioActivity extends AppCompatActivity {
 
             startActivity(intent);
         });
+    }
+
+    @Override
+     protected void onDestroy() {
+        super.onDestroy();
+
+        if(musica != null){
+            musica.release();
+            musica = null;
+        }
     }
 }

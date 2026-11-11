@@ -21,9 +21,11 @@ public class Menu_Login extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         View btnLogin = findViewById(R.id.button);
 
+        // El formulario usa la base local tanto para registrar cuentas como para comprobarlas.
         dbHelper = new DbHelper(this);
         findViewById(R.id.buttonreset).setOnClickListener(v ->
                 startActivity(new Intent(this, Reset_Password.class)));
+        // Registro reutiliza los dos campos visibles y comunica si se pudo crear la cuenta.
         findViewById(R.id.btnRegistro).setOnClickListener(v -> {
             String usuario = etUsuario.getText().toString().trim();
             String clave = etPassword.getText().toString().trim();
@@ -36,6 +38,7 @@ public class Menu_Login extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         });
 
+        // Un acceso correcto abre el hangar. finish() deja la portada como destino al volver.
         btnLogin.setOnClickListener(v -> {
             String usuario = etUsuario.getText().toString().trim();
             String password = etPassword.getText().toString().trim();

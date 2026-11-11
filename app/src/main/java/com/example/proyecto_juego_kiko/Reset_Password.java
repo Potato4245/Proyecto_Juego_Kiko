@@ -25,6 +25,7 @@ public class Reset_Password extends AppCompatActivity {
 
         dbHelper = new DbHelper(this);
 
+        // Comprobamos los tres campos y la repetición de la clave antes de actualizar la fila.
         btnGuardar.setOnClickListener(v -> {
             String usuario = etUsuario.getText().toString().trim();
             String nueva = etNuevaPassword.getText().toString().trim();
@@ -42,6 +43,7 @@ public class Reset_Password extends AppCompatActivity {
             }
         });
 
+        // Se puede volver al login sin guardar el formulario.
         btnVolver.setOnClickListener(v -> finish());
     }
 

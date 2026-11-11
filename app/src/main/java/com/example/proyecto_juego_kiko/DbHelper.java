@@ -19,6 +19,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // Al crear la base por primera vez, preparamos las cuentas y el piloto de demostración.
         db.execSQL("CREATE TABLE " + TABLE_USUARIOS + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "usuario TEXT NOT NULL UNIQUE, " +
@@ -28,10 +29,12 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Esta migración de la demo recrea la tabla y descarta las cuentas anteriores.
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USUARIOS);
         onCreate(db);
     }
 
+    // SQLite devuelve el id de la fila creada o -1 si falla la inserción (p. ej., nombre repetido).
     public long registrarUsuario(String usuario, String password) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -42,6 +45,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public boolean comprobarLogin(String usuario, String password) {
         SQLiteDatabase db = getReadableDatabase();
+        // Los signos de interrogación enlazan los dos datos del formulario a la consulta.
         Cursor cursor = db.rawQuery(
                 "SELECT id FROM " + TABLE_USUARIOS + " WHERE usuario = ? AND password = ?",
                 new String[]{usuario, password}
@@ -51,6 +55,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return existe;
     }
 
+    // El número de filas actualizadas indica si había una cuenta con ese nombre.
     public boolean cambiarPassword(String usuario, String nuevaPassword) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
