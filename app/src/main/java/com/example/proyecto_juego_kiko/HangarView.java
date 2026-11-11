@@ -49,6 +49,18 @@ public class HangarView extends FrameLayout {
         // La primera vista hija, con índice 0, es el fondo. El robot de la plataforma i está
         // en la vista hija i + 1. Ese desplazamiento se usa al dibujar y al aplicar la sombra.
         addView(fondo);
+        // Design construye esta vista sin ejecutar SelectorRobot.onCreate(). Usamos el mismo
+        // catálogo y el mismo onMeasure para situar las seis figuras sobre sus plataformas.
+        if (isInEditMode()) {
+            for (SelectorRobot.Robot robot : SelectorRobot.Robot.values()) {
+                ImageView figura = new ImageView(context);
+                figura.setImageResource(robot.imagen);
+                figura.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                figura.setContentDescription(robot.name());
+                addView(figura);
+            }
+            return;
+        }
         luzAmbiente.addUpdateListener(animacion -> aplicarSombra((int) animacion.getAnimatedValue()));
     }
 

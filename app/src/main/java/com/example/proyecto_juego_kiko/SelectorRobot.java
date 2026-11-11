@@ -14,7 +14,7 @@ import androidx.activity.OnBackPressedCallback;
 public class SelectorRobot extends ComponentActivity {
     // Cada entrada reúne el PNG y el texto de un robot. El orden coincide con las seis plataformas,
     // de izquierda a derecha. ordinal() da su posición y name() es el nombre que se guarda.
-    private enum Robot {
+    enum Robot {
         Atlas(R.drawable.sel_atlas, R.string.sel_desc_atlas),
         Volt(R.drawable.sel_volt, R.string.sel_desc_volt),
         Cronos(R.drawable.sel_cronos, R.string.sel_desc_cronos),
