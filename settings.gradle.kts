@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Proyecto_Juego_Kiko"
+rootProject.name = "kiko juego finiquitao"
 include(":app")
  

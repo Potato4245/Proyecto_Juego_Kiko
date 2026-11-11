@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Proyecto_Juego_Kiko</string>
+    <string name="app_name">kiko juego finiquitao</string>
     <string name="login_usuario">Nombre de usuario</string>
     <string name="login_password">Contraseña</string>
     <string name="login_entrar">INICIAR SESIÓN</string>
